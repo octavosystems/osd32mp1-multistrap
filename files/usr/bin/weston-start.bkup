@@ -5,16 +5,13 @@
 export PATH="/sbin:/usr/sbin:/bin:/usr/bin"
 
 usage() {
-    cat <<EOF
-    $0 [<openvt arguments>] [-- <weston options>]
+	cat <<EOF
+	$0 [<openvt arguments>] [-- <weston options>]
 EOF
 }
 
 ## Module support
-modules_dir=/usr/share/weston-start
-start_application_dir=/usr/share/weston-start-at-startup
-start_local_application_dir=/usr/local/weston-start-at-startup
-
+modules_dir=@DATADIR@/weston-start
 
 # Add weston extra argument
 add_weston_argument() {
@@ -82,18 +79,4 @@ if test -z "$XDG_RUNTIME_DIR"; then
 	fi
 fi
 
-# Load and run application at startup
-if [ -d "$start_application_dir" ]; then
-    for m in "$start_application_dir"/*; do
-        (sleep 5 && $m)&
-    done
-fi
-if [ -d "$start_local_application_dir" ]; then
-    for m in "$start_local_application_dir"/*; do
-        (sleep 5 && $m)&
-    done
-fi
-
-export WL_EGL_GBM_FENCE=0
-#exec openvt $openvt_args -- $launcher $weston_args --log=/var/log/weston.log
-exec /usr/bin/weston --log=/var/log/weston.log  $weston_args
+exec openvt $openvt_args -- $launcher $weston_args --log=@LOCALSTATEDIR@/log/weston.log

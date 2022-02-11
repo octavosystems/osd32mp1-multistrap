@@ -1,8 +1,5 @@
-export WESTON_USER=0
-export XDG_RUNTIME_DIR=/run/user/`id -u ${WESTON_USER}`
-export DISPLAY=:0
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
-export QT_QPA_PLATFORM=wayland
 export ELM_ENGINE=wayland_shm
 export ECORE_EVAS_ENGINE=wayland_shm
 export ECORE_EVAS_ENGINE=wayland_shm

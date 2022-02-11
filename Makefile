@@ -1,6 +1,6 @@
-ROOTFS_DIR ?= multistrap-debian-buster
+ROOTFS_DIR ?= multistrap-debian-bullseye
 
-.multistrap: debian-config-buster debian-debconf
+.multistrap: debian-config-bullseye debian-debconf
 	# Generation multistrap
 	rm -f $(ROOTFS_DIR)/var/lib/dpkg/status
 	multistrap -f $< -d $(ROOTFS_DIR)
